@@ -1,0 +1,9 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  text-align: center;
+}
