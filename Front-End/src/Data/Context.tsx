@@ -1,17 +1,13 @@
 import { useState, createContext } from "react";
 
-interface ContextTypes {
-  randomState: any;
-  setRandomState: any;
-}
-export const Context = createContext<ContextTypes | undefined>(undefined);
+export const Context = createContext<any>(null);
 
 const ContextProvider = ({ children }: any) => {
-  const [randomState, setRandomState] = useState(0);
+  const [userDetails, setUserDetails] = useState<any>(null);
 
-  const ContextValues: ContextTypes = {
-    randomState,
-    setRandomState,
+  const ContextValues = {
+    userDetails,
+    setUserDetails,
   };
 
   return <Context.Provider value={ContextValues}>{children}</Context.Provider>;
