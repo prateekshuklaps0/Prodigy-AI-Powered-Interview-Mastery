@@ -59,30 +59,16 @@ export const UserNameBox = css`
   @media (max-width: 468px) {
   }
 `;
-export const PopOverCss = css`
-  border: none;
-  background-color: transparent;
-  outline: none;
-  text-align: center;
+export const LogOutBtnCss = (showLogOut: any) => css`
+  cursor: pointer;
+  display: ${showLogOut ? "block" : "none"};
+  position: absolute;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 16px;
+  top: 66px;
+  left: 200px;
 
-  &:focus {
-    border: none;
-    outline: none;
-  }
-
-  p {
-    font-size: 16px;
-    cursor: pointer;
-    display: inline;
-    text-align: center;
-    align-self: center;
-    align-content: center;
-    padding: 5px 10px;
-    border-radius: 10px;
-    position: absolute;
-    right: 48px;
-    margin-top: 58px;
-  }
   @media (max-width: 992px) {
   }
   @media (max-width: 768px) {
@@ -147,6 +133,17 @@ export const TypesCss = css`
 // Right Side Component
 export const RightCont = css`
   width: 100%;
+
+  @media (max-width: 992px) {
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 468px) {
+  }
+`;
+export const ParentContRight = css`
+  margin: auto;
+  width: 80%;
 
   @media (max-width: 992px) {
   }
