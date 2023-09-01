@@ -6,6 +6,7 @@ const Theme = extendTheme({
     secondary: "#007BFF",
     textColor: "#e0aaff",
     hovertext: "#e9c4ff",
+    greenShade: "rgb(0, 255, 0)",
 
     // Backgrounds
     bgA: "#240046ef",

@@ -133,6 +133,7 @@ export const TypesCss = css`
 // Right Side Component
 export const RightCont = css`
   width: 100%;
+  padding-bottom: 80px;
 
   @media (max-width: 992px) {
   }
@@ -143,7 +144,41 @@ export const RightCont = css`
 `;
 export const ParentContRight = css`
   margin: auto;
-  width: 80%;
+  width: 70%;
+
+  @media (max-width: 992px) {
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 468px) {
+  }
+`;
+export const InpContCss = css`
+  margin: auto;
+  width: 60%;
+  border-radius: 10px;
+  padding: 5px 10px;
+  position: fixed;
+  bottom: 30px;
+  left: 30%;
+
+  input {
+    border: none;
+    text-align: left;
+    font-size: 17px;
+    margin-left: 15px;
+  }
+
+  @media (max-width: 992px) {
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 468px) {
+  }
+`;
+export const InputIconsCss = css`
+  font-size: 22px;
+  cursor: pointer;
 
   @media (max-width: 992px) {
   }
