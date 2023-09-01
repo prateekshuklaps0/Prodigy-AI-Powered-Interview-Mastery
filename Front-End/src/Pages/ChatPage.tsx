@@ -4,21 +4,26 @@ import {
   Box,
   Text,
   Image,
-  ScaleFade,
   Center,
-  useDisclosure,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  Portal,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
 } from "@chakra-ui/react";
 
-import {
-  PiDotsThreeCircleThin as ThreeDots,
-  // PiDotsThreeCircleFill as ThreeDots,
-} from "react-icons/pi";
+import { PiDotsNineBold as ThreeDots } from "react-icons/pi";
 
 import { Context } from "../Data/Context";
 
 const ChatPage = () => {
   const { userDetails } = useContext(Context);
-  const { isOpen, onToggle } = useDisclosure();
+  const [showOptions, setShowOptions] = useState(false);
   const [interviewType, setInterviewType] = useState("");
 
   return (
@@ -28,37 +33,60 @@ const ChatPage = () => {
         {/* UserName */}
         <Box bg="bgA" color="textColor" css={css.UserNameBox}>
           <Text>{`Hi!  ${userDetails?.name}`}</Text>
-          <Image _hover={{ color: "#e9c4ff" }} as={ThreeDots} />
+          <Popover placement="bottom-end" closeOnBlur={false}>
+            <PopoverTrigger>
+              <Image _hover={{ color: "hovertext" }} as={ThreeDots} />
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent css={css.PopOverCss}>
+                <PopoverBody>
+                  <Text
+                    onClick={() => {
+                      console.log("Log Outed");
+                    }}
+                    bg="bgA"
+                    color="textColor"
+                    _hover={{ color: "hovertext" }}
+                  >
+                    LogOut
+                  </Text>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
         </Box>
 
         {/* Interview Type */}
         <Center
           bg="bgA"
           color="textColor"
-          onClick={onToggle}
+          onClick={() => setShowOptions(true)}
           css={css.SelectBoxCss}
         >
           {interviewType
             ? `Interview Type : ${interviewType}`
             : "Select Interview Type ⏷"}
         </Center>
-        <ScaleFade initialScale={0.9} in={isOpen}>
-          <Box bg="bgA" color="textColor" css={css.InterviewTypeBox}>
-            {InterviewOptions.map((item, ind) => (
-              <Center
-                bg={interviewType == item.value ? "bgB" : "bgA"}
-                onClick={() => {
-                  setInterviewType(item.value);
-                  onToggle();
-                }}
-                css={css.TypesCss}
-                key={item.name + ind}
-              >
-                {item.name}
-              </Center>
-            ))}
-          </Box>
-        </ScaleFade>
+        <Box
+          display={showOptions ? "static" : "none"}
+          bg="bgA"
+          color="textColor"
+          css={css.InterviewTypeBox}
+        >
+          {InterviewOptions.map((item, ind) => (
+            <Center
+              bg={interviewType == item.value ? "bgB" : "bgA"}
+              onClick={() => {
+                setInterviewType(item.value);
+                setShowOptions(false);
+              }}
+              css={css.TypesCss}
+              key={item.name + ind}
+            >
+              {item.name}
+            </Center>
+          ))}
+        </Box>
       </Box>
 
       {/************************  Right Side *************************/}
