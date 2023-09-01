@@ -47,11 +47,42 @@ export const UserNameBox = css`
   }
 
   svg {
-    font-size: 24px;
+    font-size: 20px;
     width: 15%;
     cursor: pointer;
   }
 
+  @media (max-width: 992px) {
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 468px) {
+  }
+`;
+export const PopOverCss = css`
+  border: none;
+  background-color: transparent;
+  outline: none;
+  text-align: center;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+
+  p {
+    font-size: 16px;
+    cursor: pointer;
+    display: inline;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    position: absolute;
+    right: 48px;
+    margin-top: 58px;
+  }
   @media (max-width: 992px) {
   }
   @media (max-width: 768px) {
