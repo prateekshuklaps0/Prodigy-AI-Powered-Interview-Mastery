@@ -10,17 +10,17 @@ import { SignUp } from "./Pages/SignUp";
 import { Login } from "./Pages/Login";
 
 function App() {
-  // const ParticleInit = useCallback((main: any) => {
-  //   loadFull(main);
-  // }, []);
+  const ParticleInit = useCallback((main: any) => {
+    loadFull(main);
+  }, []);
 
   return (
     <Box id="App">
       <Particles options={ParticleOptions} init={ParticleInit} />
       {true && <ChatPage />}
-      
-        {/* <SignUp/> */}
-        {/* <Login/> */}
+
+      {/* <SignUp/> */}
+      {/* <Login/> */}
     </Box>
   );
 }
