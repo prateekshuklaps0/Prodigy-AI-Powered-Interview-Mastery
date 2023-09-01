@@ -18,9 +18,9 @@ function App() {
     <Box id="App">
       <Particles options={ParticleOptions} init={ParticleInit} />
       {true && <ChatPage />}
-      
-        {/* <SignUp/> */}
-        {/* <Login/> */}
+
+      {/* <SignUp/> */}
+      {/* <Login/> */}
     </Box>
   );
 }
