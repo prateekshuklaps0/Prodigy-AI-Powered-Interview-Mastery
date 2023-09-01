@@ -9,3 +9,7 @@
 - Axios : npm i axios
 
 - Tailwind : npm install tailwindcss postcss autoprefixer
+
+- npm install @types/react-speech-recognition
+
+- npm i react-tsparticles tsparticles

@@ -7,3 +7,44 @@
   box-sizing: border-box;
   text-align: center;
 }
+#App {
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+#Color-Palettes {
+  color: #10002b;
+  color: #240046;
+  color: #3c096c;
+  color: #5a189a;
+  color: #7b2cbf;
+  color: #9d4edd;
+  color: #c77dff;
+  color: #e0aaff;
+}
+#tsparticles {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  z-index: -1;
+
+  background-color: #10002b;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+#testing {
+  width: 60%;
+  margin: auto;
+  border-radius: 10px;
+  margin-top: 50px;
+  height: 400px;
+  background-color: #59189adf;
+}
