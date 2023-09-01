@@ -32,7 +32,7 @@ const ChatPage = () => {
       <Box bg="bgB" css={css.LeftCont}>
         {/* UserName */}
         <Box bg="bgA" color="textColor" css={css.UserNameBox}>
-          <Text>{`Hi!  ${userDetails?.name}`}</Text>
+          <Text>{`Hi!  ${userDetails}`}</Text>
           <Popover placement="bottom-end" closeOnBlur={false}>
             <PopoverTrigger>
               <Image _hover={{ color: "hovertext" }} as={ThreeDots} />

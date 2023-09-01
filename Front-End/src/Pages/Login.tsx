@@ -6,7 +6,7 @@ let initialData = {
     password:""
 }
 export const Login = () => {
-    const {setUserDetails } = useContext(Context)
+    const {setUserDetails,setToken } = useContext(Context)
     const [inputData,setInputData] = useState(initialData)
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -30,7 +30,8 @@ export const Login = () => {
         .then(data => {
           setInputData(initialData);
             // console.log(data.access_token);
-            setUserDetails({ token: data.access_token });
+            setToken(data.access_token );
+            setUserDetails(data.user)
         })
         .catch(error => {
             console.error('Error:', error);
