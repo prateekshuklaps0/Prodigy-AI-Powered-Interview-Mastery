@@ -27,12 +27,28 @@ const ChatPage = () => {
       <Box bg="bgB" css={css.LeftCont}>
         {/* UserName */}
         <Box bg="bgA" color="textColor" css={css.UserNameBox}>
-          <Text>{`Hi!  ${userDetails?.name}`}</Text>
-          <Image
-            onClick={() => setShowLogOut((prev) => !prev)}
-            _hover={{ color: "hovertext" }}
-            as={ThreeDots}
-          />
+          <Text>{`Hi!  ${userDetails}`}</Text>
+          <Popover placement="bottom-end" closeOnBlur={false}>
+            <PopoverTrigger>
+              <Image _hover={{ color: "hovertext" }} as={ThreeDots} />
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent css={css.PopOverCss}>
+                <PopoverBody>
+                  <Text
+                    onClick={() => {
+                      console.log("Log Outed");
+                    }}
+                    bg="bgA"
+                    color="textColor"
+                    _hover={{ color: "hovertext" }}
+                  >
+                    LogOut
+                  </Text>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
         </Box>
         {/* Log Out */}
         <Center
