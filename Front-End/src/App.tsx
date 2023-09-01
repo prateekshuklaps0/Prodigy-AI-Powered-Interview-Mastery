@@ -6,6 +6,8 @@ import { Box } from "@chakra-ui/react";
 
 import ParticleOptions from "./Styles/ParticleOptions.json";
 import ChatPage from "./Pages/ChatPage";
+import { SignUp } from "./Pages/SignUp";
+import { Login } from "./Pages/Login";
 
 function App() {
   const ParticleInit = useCallback((main: any) => {
@@ -15,8 +17,9 @@ function App() {
   return (
     <Box id="App">
       <Particles options={ParticleOptions} init={ParticleInit} />
-
       {true && <ChatPage />}
+      
+        {/* <SignUp/> */}
     </Box>
   );
 }
