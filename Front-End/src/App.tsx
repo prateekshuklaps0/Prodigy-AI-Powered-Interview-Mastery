@@ -2,7 +2,7 @@ import "./App.css";
 import { Box } from "@chakra-ui/react";
 
 function App() {
-  return <Box></Box>;
+  return <Box className="bg-red-500">Hello</Box>;
 }
 
 export default App;
