@@ -5,16 +5,10 @@ import {
   Text,
   Image,
   Center,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  Portal,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
 } from "@chakra-ui/react";
 
 import { PiDotsNineBold as ThreeDots } from "react-icons/pi";
@@ -23,6 +17,7 @@ import { Context } from "../Data/Context";
 
 const ChatPage = () => {
   const { userDetails } = useContext(Context);
+  const [showLogOut, setShowLogOut] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [interviewType, setInterviewType] = useState("");
 
@@ -33,28 +28,24 @@ const ChatPage = () => {
         {/* UserName */}
         <Box bg="bgA" color="textColor" css={css.UserNameBox}>
           <Text>{`Hi!  ${userDetails?.name}`}</Text>
-          <Popover placement="bottom-end" closeOnBlur={false}>
-            <PopoverTrigger>
-              <Image _hover={{ color: "hovertext" }} as={ThreeDots} />
-            </PopoverTrigger>
-            <Portal>
-              <PopoverContent css={css.PopOverCss}>
-                <PopoverBody>
-                  <Text
-                    onClick={() => {
-                      console.log("Log Outed");
-                    }}
-                    bg="bgA"
-                    color="textColor"
-                    _hover={{ color: "hovertext" }}
-                  >
-                    LogOut
-                  </Text>
-                </PopoverBody>
-              </PopoverContent>
-            </Portal>
-          </Popover>
+          <Image
+            onClick={() => setShowLogOut((prev) => !prev)}
+            _hover={{ color: "hovertext" }}
+            as={ThreeDots}
+          />
         </Box>
+        {/* Log Out */}
+        <Center
+          onClick={() => {
+            console.log("Log Outed");
+          }}
+          bg="bgA"
+          color="textColor"
+          _hover={{ color: "hovertext" }}
+          css={css.LogOutBtnCss(showLogOut)}
+        >
+          LogOut
+        </Center>
 
         {/* Interview Type */}
         <Center
@@ -93,7 +84,7 @@ const ChatPage = () => {
       <Box css={css.RightCont}>
         {/* <div id="testing"></div> */}
 
-        {interviewType}
+        <Box css={css.ParentContRight}></Box>
       </Box>
     </Box>
   );
