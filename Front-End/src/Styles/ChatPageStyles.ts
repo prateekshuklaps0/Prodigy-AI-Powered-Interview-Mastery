@@ -134,6 +134,7 @@ export const TypesCss = css`
 export const RightCont = css`
   width: 100%;
   padding-bottom: 80px;
+  overflow-y: scroll;
 
   @media (max-width: 992px) {
   }

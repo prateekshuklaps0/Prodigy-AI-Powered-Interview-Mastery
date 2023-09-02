@@ -10,11 +10,9 @@ import { Context } from "./Data/Context";
 import ChatPage from "./Pages/ChatPage";
 import { SignUp } from "./Pages/SignUp";
 import { Login } from "./Pages/Login";
-import ResponseBox from "./Components/ResponseBox";
 
 function App() {
-  const { token } = useContext(Context);
-  const [showSignUpBox, setShowSignUpBox] = useState(false);
+  const { token, showSignUpBox, setShowSignUpBox } = useContext(Context);
 
   const ParticleInit = useCallback((main: any) => {
     loadFull(main);
@@ -24,10 +22,9 @@ function App() {
     <Box id="App">
       <Particles options={ParticleOptions} init={ParticleInit} />
 
+      {token && <ChatPage />}
 
-      {!token && <ChatPage />}
-
-      {token && (
+      {!token && (
         <Box>
           <Box
             m="auto"
