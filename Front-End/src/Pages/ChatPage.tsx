@@ -200,7 +200,7 @@ export const ChatPage = () => {
 
     setLoading(true);
     axios({
-      url: `${API_Url}/answer`,
+      url: `${API_Url}/interview/answer`,
       method: "post",
       data: {
         subject: interviewType,
