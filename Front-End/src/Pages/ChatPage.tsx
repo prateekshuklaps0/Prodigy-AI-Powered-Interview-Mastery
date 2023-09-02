@@ -86,7 +86,6 @@ export const ChatPage = () => {
   }, [interviewType]);
 
   // handle Start and Next Question Button
-
   const requestOptions = {
     method: "POST",
     headers: {
@@ -95,7 +94,6 @@ export const ChatPage = () => {
     },
     body: JSON.stringify({ subject: interviewType }),
   };
-
   const handleChatBtn = () => {
     setLoading(true);
     fetch(`${API_Url}/interview/questions`, requestOptions)
@@ -115,6 +113,7 @@ export const ChatPage = () => {
         setResponseContent((prev: any) => [...prev, firstQuestion]);
         setQuestion(firstQuestion.content);
         setBtnText("Next Question");
+        resetTranscript();
         setLoading(false);
       })
       .catch((error) => {
@@ -147,6 +146,7 @@ export const ChatPage = () => {
     //     setResponseContent((prev: any) => [...prev, firstQuestion]);
     //     setQuestion(firstQuestion?.content);
     //     setBtnText("Next Question");
+    // resetTranscript()
     //     setLoading(false);
     //   })
     //   .catch((err) => {
@@ -217,6 +217,7 @@ export const ChatPage = () => {
         };
         setResponseContent((prev: any) => [...prev, responseFeedback]);
         setLoading(false);
+        resetTranscript();
       })
       .catch((err) => {
         console.log(err);
