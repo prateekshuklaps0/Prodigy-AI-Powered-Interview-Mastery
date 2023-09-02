@@ -135,6 +135,7 @@ export const RightCont = css`
   width: 100%;
   padding-bottom: 80px;
   overflow-y: scroll;
+  height: 100dvh;
 
   @media (max-width: 992px) {
   }
@@ -147,6 +148,14 @@ export const ParentContRight = css`
   margin: auto;
   width: 70%;
 
+  @media (max-width: 992px) {
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 468px) {
+  }
+`;
+export const Chat = css`
   @media (max-width: 992px) {
   }
   @media (max-width: 768px) {
