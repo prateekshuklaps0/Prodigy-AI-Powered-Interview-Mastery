@@ -1,17 +1,22 @@
 import { useState, createContext } from "react";
 
-interface ContextTypes {
-  randomState: any;
-  setRandomState: any;
-}
-export const Context = createContext<ContextTypes | undefined>(undefined);
+export const Context = createContext<any>(null);
 
 const ContextProvider = ({ children }: any) => {
-  const [randomState, setRandomState] = useState(0);
+  const [userDetails, setUserDetails] = useState<any>(null);
+  const [token, setToken] = useState("");
+  const [showSignUpBox, setShowSignUpBox] = useState(false);
+  const [responseContent, setResponseContent] = useState([]);
 
-  const ContextValues: ContextTypes = {
-    randomState,
-    setRandomState,
+  const ContextValues = {
+    showSignUpBox,
+    setShowSignUpBox,
+    responseContent,
+    setResponseContent,
+    userDetails,
+    setUserDetails,
+    token,
+    setToken,
   };
 
   return <Context.Provider value={ContextValues}>{children}</Context.Provider>;
