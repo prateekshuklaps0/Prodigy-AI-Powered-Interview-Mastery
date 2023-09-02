@@ -1,6 +1,5 @@
 import "./App.css";
-import { useContext, useState } from "react";
-import { useCallback } from "react";
+import { useContext, useCallback } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { Box, Button } from "@chakra-ui/react";
@@ -11,20 +10,25 @@ import ChatPage from "./Pages/ChatPage";
 import { SignUp } from "./Pages/SignUp";
 import { Login } from "./Pages/Login";
 
+export type ParticleOptionsType = Record<string, unknown>;
+
 function App() {
   const { token, showSignUpBox, setShowSignUpBox } = useContext(Context);
 
-  const ParticleInit = useCallback((main: any) => {
-    loadFull(main);
+  const ParticleInit = useCallback(async (engine: any) => {
+    await loadFull(engine);
   }, []);
 
   return (
     <Box id="App">
-      <Particles options={ParticleOptions} init={ParticleInit} />
+      <Particles
+        options={ParticleOptions as ParticleOptionsType}
+        init={ParticleInit}
+      />
 
-      {token && <ChatPage />}
+      {!token && <ChatPage />}
 
-      {!token && (
+      {token && (
         <Box>
           <Box
             m="auto"
