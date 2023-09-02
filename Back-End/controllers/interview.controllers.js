@@ -18,8 +18,8 @@ const question = async (req, res)=>{
             })
         });
         response = await response.json();
-        const data = response.choices[0].message.content;
-        res.status(200).send({question: data});
+      //  const data = response.choices[0].message.content;
+        res.status(200).send({question: response});
     } catch (error) {
         console.log(error)
     }
