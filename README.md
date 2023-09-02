@@ -37,4 +37,4 @@
 
 <hr/>
 
-![ChatPage 1](./Images/ChatPage2.png)
+![ChatPage 1](https://ibb.co/xJBHnX9)
