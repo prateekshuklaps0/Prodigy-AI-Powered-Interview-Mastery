@@ -46,7 +46,7 @@ export const SignUp = () => {
       .then((response) => response.json())
       .then((data) => {
         setInputData(initialData);
-        setShowSignUpBox(true)
+        setShowSignUpBox(false)
         toast({
           title: 'Registered Successfully',
           status: 'success',

@@ -26,9 +26,9 @@ function App() {
         init={ParticleInit}
       />
 
-      {!token && <ChatPage />}
+      {token && <ChatPage />}
 
-      {token && (
+      {!token && (
         <Box>
           <Box
             m="auto"
