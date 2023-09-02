@@ -1,4 +1,5 @@
 import * as css from "../Styles/ChatPageStyles";
+import axios from "axios";
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -10,6 +11,7 @@ import {
   Image,
   Center,
   useToast,
+  Spinner,
   Input,
   InputGroup,
   InputLeftElement,
@@ -23,9 +25,9 @@ import { RiSendPlaneFill as SendIcon } from "react-icons/ri";
 import { Context } from "../Data/Context";
 import ChatBox from "../Components/ChatBox";
 
-const ChatPage = () => {
+export const ChatPage = () => {
   const toast = useToast();
-  const { userDetails, responseContent, setResponseContent } =
+  const { API_Url, token, userDetails, responseContent, setResponseContent } =
     useContext(Context);
   const {
     transcript,
@@ -36,6 +38,9 @@ const ChatPage = () => {
   const [showLogOut, setShowLogOut] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [interviewType, setInterviewType] = useState("");
+  const [btnText, setBtnText] = useState("Start");
+  const [isLoading, setLoading] = useState(false);
+  const [question, setQuestion] = useState("");
   const [inpVal, setInpVal] = useState("");
 
   const startListening = () =>
@@ -60,7 +65,7 @@ const ChatPage = () => {
       toast({
         title: `Microphone : ON`,
         status: "success",
-        position: "top",
+        position: "top-right",
         duration: 1000,
       });
       startListening();
@@ -68,33 +73,120 @@ const ChatPage = () => {
       toast({
         title: `Microphone : OFF`,
         status: "info",
-        position: "top",
+        position: "top-right",
         duration: 1000,
       });
       SpeechRecognition.stopListening();
-      resetTranscript();
     }
+  };
+
+  // Change Button Type
+  useEffect(() => {
+    setBtnText("Start");
+  }, [interviewType]);
+
+  // handle Start and Next Question Button
+  const handleChatBtn = () => {
+    setLoading(true);
+    axios({
+      url: `${API_Url}/questions`,
+      method: "post",
+      data: {
+        subject: interviewType,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        let firstQuestion = {
+          content: res.data.question.choices[0].message.content,
+          type: "Response",
+        };
+        setResponseContent((prev: any) => [...prev, firstQuestion]);
+        setQuestion(firstQuestion?.content);
+        setBtnText("Next Question");
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: `Something Went Wrong`,
+          status: "error",
+          position: "top-right",
+          duration: 2000,
+        });
+        setLoading(false);
+      });
   };
 
   // Submit Function
   const handleSubmit = () => {
+    if (interviewType == "") {
+      setInpVal("");
+      return toast({
+        title: `Select the Interview Type first !`,
+        status: "info",
+        position: "top-right",
+        duration: 2000,
+      });
+    }
+    if (btnText == "Start") {
+      setInpVal("");
+      return toast({
+        title: `Click the Start button !`,
+        status: "info",
+        position: "top-right",
+        duration: 2000,
+      });
+    }
     if (inpVal == "") {
       return toast({
         title: `Empty Response !`,
-        position: "top",
         status: "error",
+        position: "top-right",
         duration: 2000,
       });
     }
 
-    let chatDetails = {
+    let userInput = {
       content: inpVal,
-      // type: "userInput",
-      type: "Response",
+      type: "userInput",
     };
-    setResponseContent((prev: any) => [...prev, chatDetails]);
-
+    setResponseContent((prev: any) => [...prev, userInput]);
     setInpVal("");
+
+    setLoading(true);
+    axios({
+      url: `${API_Url}/answer`,
+      method: "post",
+      data: {
+        subject: interviewType,
+        question,
+        answer: inpVal,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        let responseFeedback = {
+          content: res.data,
+          type: "Response",
+        };
+        setResponseContent((prev: any) => [...prev, responseFeedback]);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: `Something Went Wrong`,
+          status: "error",
+          position: "top-right",
+          duration: 2000,
+        });
+        setLoading(false);
+      });
   };
 
   return (
@@ -160,52 +252,60 @@ const ChatPage = () => {
       <Box css={css.RightCont}>
         {/* <div id="testing"></div> */}
         <Box css={css.ParentContRight}>
+          {/* Start & Next Question Btn */}
+          {interviewType != "" ? (
+            <Center
+              onClick={handleChatBtn}
+              bg="bgB"
+              color="hovertext"
+              css={css.BtnCss}
+            >
+              {isLoading ? <Spinner size={["sm"]} /> : btnText}
+            </Center>
+          ) : (
+            ""
+          )}
+
           {/* Chats */}
-          <Box>
+          <Box mt={["20px"]}>
             {responseContent.map((item: any, ind: any) => (
               <ChatBox {...item} key={item.content + ind} />
             ))}
           </Box>
 
           {/* Input Component */}
-
-          <Box>
-            <Box>Start</Box>
-            <Box bg="bgB" css={css.InpContCss}>
-              <InputGroup>
-                <InputLeftElement
-                  onClick={handleMicClick}
-                  color={listening ? "greenShade" : "textcolor"}
-                  css={css.InputIconsCss}
-                >
-                  <MicIcon />
-                </InputLeftElement>
-                <Input
-                  color="hovertext"
-                  _placeholder={{ color: "hovertext" }}
-                  focusBorderColor="transparent"
-                  value={inpVal}
-                  onChange={(e) => setInpVal(e.target.value)}
-                  placeholder="Your Answer"
-                />
-                <InputRightElement
-                  onClick={handleSubmit}
-                  color="hovertext"
-                  _hover={{ color: "greenShade" }}
-                  css={css.InputIconsCss}
-                >
-                  <SendIcon />
-                </InputRightElement>
-              </InputGroup>
-            </Box>
+          <Box bg="bgB" css={css.InpContCss}>
+            <InputGroup>
+              <InputLeftElement
+                onClick={handleMicClick}
+                color={listening ? "greenShade" : "textcolor"}
+                css={css.InputIconsCss}
+              >
+                <MicIcon />
+              </InputLeftElement>
+              <Input
+                color="hovertext"
+                _placeholder={{ color: "hovertext" }}
+                focusBorderColor="transparent"
+                value={inpVal}
+                onChange={(e) => setInpVal(e.target.value)}
+                placeholder="Your Answer"
+              />
+              <InputRightElement
+                onClick={handleSubmit}
+                color="hovertext"
+                _hover={{ color: "greenShade" }}
+                css={css.InputIconsCss}
+              >
+                <SendIcon />
+              </InputRightElement>
+            </InputGroup>
           </Box>
         </Box>
       </Box>
     </Box>
   );
 };
-
-export default ChatPage;
 
 const InterviewOptions = [
   {

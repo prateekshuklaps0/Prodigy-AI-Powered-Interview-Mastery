@@ -1,5 +1,5 @@
 //import React from "react";
-import { Box, Text, Center, useToast } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const ChatBox = ({ content, type }: any) => {
   return (
