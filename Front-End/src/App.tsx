@@ -10,6 +10,7 @@ import { Context } from "./Data/Context";
 import ChatPage from "./Pages/ChatPage";
 import { SignUp } from "./Pages/SignUp";
 import { Login } from "./Pages/Login";
+import ResponseBox from "./Components/ResponseBox";
 
 function App() {
   const { token } = useContext(Context);
@@ -22,6 +23,7 @@ function App() {
   return (
     <Box id="App">
       <Particles options={ParticleOptions} init={ParticleInit} />
+
 
       {!token && <ChatPage />}
 
