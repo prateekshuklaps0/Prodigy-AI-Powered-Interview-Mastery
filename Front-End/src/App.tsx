@@ -6,7 +6,7 @@ import { Box, Button } from "@chakra-ui/react";
 
 import ParticleOptions from "./Styles/ParticleOptions.json";
 import { Context } from "./Data/Context";
-import ChatPage from "./Pages/ChatPage";
+import { ChatPage } from "./Pages/ChatPage";
 import { SignUp } from "./Pages/SignUp";
 import { Login } from "./Pages/Login";
 

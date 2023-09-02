@@ -155,7 +155,15 @@ export const ParentContRight = css`
   @media (max-width: 468px) {
   }
 `;
-export const Chat = css`
+export const BtnCss = css`
+  margin: auto;
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 6px;
+  font-size: 18px;
+  margin-top: 15px;
+  cursor: pointer;
+
   @media (max-width: 992px) {
   }
   @media (max-width: 768px) {
