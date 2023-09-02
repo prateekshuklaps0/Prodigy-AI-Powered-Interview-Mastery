@@ -86,38 +86,80 @@ export const ChatPage = () => {
   }, [interviewType]);
 
   // handle Start and Next Question Button
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ subject: interviewType }),
+  };
+
   const handleChatBtn = () => {
     setLoading(true);
-    axios({
-      url: `${API_Url}/questions`,
-      method: "post",
-      data: {
-        subject: interviewType,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        let firstQuestion = {
-          content: res.data.question.choices[0].message.content,
-          type: "Response",
-        };
-        setResponseContent((prev: any) => [...prev, firstQuestion]);
-        setQuestion(firstQuestion?.content);
-        setBtnText("Next Question");
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast({
-          title: `Something Went Wrong`,
-          status: "error",
-          position: "top-right",
-          duration: 2000,
-        });
-        setLoading(false);
-      });
+    fetch(`${API_Url}/interview/questions`, requestOptions)
+  .then((response) => {
+    // console.log(response)
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data)
+    let firstQuestion = {
+      content: data.question.choices[0].message.content,
+      type: "Response",
+    };
+    setResponseContent((prev:any) => [...prev, firstQuestion]);
+    setQuestion(firstQuestion.content);
+    setBtnText("Next Question");
+    setLoading(false);
+  })
+  .catch((error) => {
+    console.error("There was a problem with the fetch operation:", error);
+    toast({
+      title: "Something Went Wrong",
+      status: "error",
+      position: "top-right",
+      duration: 2000,
+    });
+    setLoading(false);
+  });
+
+
+    // setLoading(true);
+    // axios({
+    //   url: `${API_Url}/questions`,
+    //   method: "post",
+    //   data: {
+    //     subject: interviewType,
+    //   },
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then((res) => {
+    //     let firstQuestion = {
+    //       content: res.data.question.choices[0].message.content,
+    //       type: "Response",
+    //     };
+    //     setResponseContent((prev: any) => [...prev, firstQuestion]);
+    //     setQuestion(firstQuestion?.content);
+    //     setBtnText("Next Question");
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     toast({
+    //       title: `Something Went Wrong`,
+    //       status: "error",
+    //       position: "top-right",
+    //       duration: 2000,
+    //     });
+    //     setLoading(false);
+    //   });
   };
 
   // Submit Function
