@@ -21,10 +21,12 @@ import { HiMicrophone as MicIcon } from "react-icons/hi";
 import { RiSendPlaneFill as SendIcon } from "react-icons/ri";
 
 import { Context } from "../Data/Context";
+import ChatBox from "../Components/ChatBox";
 
 const ChatPage = () => {
   const toast = useToast();
-  const { userDetails } = useContext(Context);
+  const { userDetails, responseContent, setResponseContent } =
+    useContext(Context);
   const {
     transcript,
     listening,
@@ -84,6 +86,14 @@ const ChatPage = () => {
         duration: 2000,
       });
     }
+
+    let chatDetails = {
+      content: inpVal,
+      // type: "userInput",
+      type: "Response",
+    };
+    setResponseContent((prev: any) => [...prev, chatDetails]);
+
     setInpVal("");
   };
 
@@ -150,33 +160,44 @@ const ChatPage = () => {
       <Box css={css.RightCont}>
         {/* <div id="testing"></div> */}
         <Box css={css.ParentContRight}>
+          {/* Chats */}
+          <Box>
+            {responseContent.map((item: any, ind: any) => (
+              <ChatBox {...item} key={item.content + ind} />
+            ))}
+          </Box>
+
           {/* Input Component */}
-          <Box bg="bgB" css={css.InpContCss}>
-            <InputGroup>
-              <InputLeftElement
-                onClick={handleMicClick}
-                color={listening ? "greenShade" : "textcolor"}
-                css={css.InputIconsCss}
-              >
-                <MicIcon />
-              </InputLeftElement>
-              <Input
-                color="hovertext"
-                _placeholder={{ color: "hovertext" }}
-                focusBorderColor="transparent"
-                value={inpVal}
-                onChange={(e) => setInpVal(e.target.value)}
-                placeholder="Your Answer"
-              />
-              <InputRightElement
-                onClick={handleSubmit}
-                color="hovertext"
-                _hover={{ color: "greenShade" }}
-                css={css.InputIconsCss}
-              >
-                <SendIcon />
-              </InputRightElement>
-            </InputGroup>
+
+          <Box>
+            <Box>Start</Box>
+            <Box bg="bgB" css={css.InpContCss}>
+              <InputGroup>
+                <InputLeftElement
+                  onClick={handleMicClick}
+                  color={listening ? "greenShade" : "textcolor"}
+                  css={css.InputIconsCss}
+                >
+                  <MicIcon />
+                </InputLeftElement>
+                <Input
+                  color="hovertext"
+                  _placeholder={{ color: "hovertext" }}
+                  focusBorderColor="transparent"
+                  value={inpVal}
+                  onChange={(e) => setInpVal(e.target.value)}
+                  placeholder="Your Answer"
+                />
+                <InputRightElement
+                  onClick={handleSubmit}
+                  color="hovertext"
+                  _hover={{ color: "greenShade" }}
+                  css={css.InputIconsCss}
+                >
+                  <SendIcon />
+                </InputRightElement>
+              </InputGroup>
+            </Box>
           </Box>
         </Box>
       </Box>
