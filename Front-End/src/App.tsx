@@ -8,6 +8,7 @@ import ParticleOptions from "./Styles/ParticleOptions.json";
 import ChatPage from "./Pages/ChatPage";
 import { SignUp } from "./Pages/SignUp";
 import { Login } from "./Pages/Login";
+import ResponseBox from "./Components/ResponseBox";
 
 function App() {
   const ParticleInit = useCallback((main: any) => {
@@ -18,8 +19,8 @@ function App() {
     <Box id="App">
       <Particles options={ParticleOptions} init={ParticleInit} />
       {true && <ChatPage />}
-
-      {/* <SignUp/> */}
+      {/* <ResponseBox/>
+      <SignUp/> */}
       {/* <Login/> */}
     </Box>
   );
