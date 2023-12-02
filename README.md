@@ -6,10 +6,10 @@
 
 ## Features :-
 
-- User can Register / LogIn.
-- Can select subject between MERN, Node, Java to commence the interview.
-- User can send response using the Voice Assistant feature.
-- User can get assistence with AI generated interview based questions.
+- Supports multiple tech stacks interviews.
+- Voice-to-text assistant feature.
+- Feedback on performance.
+- User authorization.
 
 ## Tech Stacks Used :-
 
